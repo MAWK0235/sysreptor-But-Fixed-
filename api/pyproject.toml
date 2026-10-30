@@ -46,11 +46,10 @@ dependencies = [
   "playwright (~=1.53)",
   "pikepdf (~=10.0)",
   "celery (~=5.3)",
-  "taskiq[reload] (~=0.13.0)",
-  "taskiq-redis (~=1.2)",
   "psutil (~=7.0)",
   "markdownify (~=1.2)",
   "langchain[anthropic,openai,deepseek,ollama,mistralai] (~=1.0)",
+  "langchain-google-genai (~=2.0)",
   "deepagents (~=0.7)",
 
   "django-debug-toolbar (~=8.0)",
@@ -63,7 +62,7 @@ dependencies = [
   "pytest-cov (~=7.0)",
 
   "pip-licenses-cli (~=4.0)",
-  "ruff (~=0.17)",
+  "ruff (~=0.16)",
 ]
 
 
