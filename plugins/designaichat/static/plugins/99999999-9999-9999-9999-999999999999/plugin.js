@@ -1,4 +1,6 @@
 export default function (options) {
+  console.log("Design AI Chat script initialized", options);
+  
   if (typeof document === 'undefined') return;
 
   const initChat = () => {
@@ -28,9 +30,9 @@ export default function (options) {
     panel.style.right = '20px';
     panel.style.width = '350px';
     panel.style.height = '500px';
-    panel.style.backgroundColor = 'var(--v-theme-surface)';
-    panel.style.color = 'var(--v-theme-on-surface)';
-    panel.style.border = '1px solid var(--v-theme-border-color)';
+    panel.style.backgroundColor = 'var(--v-theme-surface, white)';
+    panel.style.color = 'var(--v-theme-on-surface, black)';
+    panel.style.border = '1px solid var(--v-theme-border-color, #ccc)';
     panel.style.borderRadius = '8px';
     panel.style.display = 'none';
     panel.style.flexDirection = 'column';
@@ -125,14 +127,13 @@ export default function (options) {
     input.onkeypress = (e) => { if (e.key === 'Enter') send(); };
   };
 
-  // Only show on /designs/ routes
   const checkRoute = () => {
-    if (window.location.hash.includes('/designs/')) {
-      initChat();
-      const btn = document.getElementById('design-ai-chat-btn');
+    // Show everywhere while testing, to ensure JS is actually injecting it
+    initChat();
+    const btn = document.getElementById('design-ai-chat-btn');
+    if (window.location.hash.includes('/designs/') || window.location.pathname.includes('/designs/')) {
       if (btn) btn.style.display = 'flex';
     } else {
-      const btn = document.getElementById('design-ai-chat-btn');
       const panel = btn?.nextElementSibling;
       if (btn) btn.style.display = 'none';
       if (panel) panel.style.display = 'none';
@@ -140,11 +141,12 @@ export default function (options) {
   };
 
   window.addEventListener('hashchange', checkRoute);
-  // Also check immediately or listen to nuxt router
+  
   if (options.nuxtApp && options.nuxtApp.$router) {
     options.nuxtApp.$router.afterEach(() => {
       setTimeout(checkRoute, 100);
     });
   }
+  
   setTimeout(checkRoute, 500);
 }
